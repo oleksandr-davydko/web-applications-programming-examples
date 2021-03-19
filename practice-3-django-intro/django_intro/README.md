@@ -75,7 +75,7 @@ http://127.0.0.1/api/example - GET, POST - тіло не потрібне
 
 
 ### Додаткові посилання
-https://www.djangoproject.com/start/ - quickstart guide із Django від його розробників
-https://www.django-rest-framework.org/ - сайт проекту Django REST Framework
-https://docs.djangoproject.com/en/3.1/intro/tutorial01/ - опис створення додатку на Django
+https://www.djangoproject.com/start/ - quickstart guide із Django від його розробників\
+https://www.django-rest-framework.org/ - сайт проекту Django REST Framework\
+https://docs.djangoproject.com/en/3.1/intro/tutorial01/ - опис створення додатку на Django\
 https://www.postman.com/ - сайт проекту Postman
