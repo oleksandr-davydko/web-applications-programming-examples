@@ -39,7 +39,7 @@ class ExampleView(APIView):
         # Створити клас-серіалізатор, що підготує об'єкт з даними для відповіді до серіалізації
         response_data_serializer = CalculationResponseSerializer(response_data)
         # Створити об'єкт відповіді із даними
-        response = Response(response_data_serializer.data)
+        response = Response(response_data_serializer.data, content_type='application/json')
         # Повернути відповідь. Коректна доставка гарантована фреймворком.
         return response
 
