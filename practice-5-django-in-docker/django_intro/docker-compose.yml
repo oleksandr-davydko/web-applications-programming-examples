@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # основний сервіс застосунку
+  webhost:
+    # назва образу для запуску
+    image: mydocker.example.invalid/webhost
+    # якщо зібранного образу немає - створити його. Використовувати лише у парі з параметром image, інакше образ буду перезбиратись кожного разу
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # передача змінних оточення
+    environment:
+        # для передачі адреси іншого сервісу можна скористатися його іменем. тут ім'я redis_server також є доменним іменем сервісу у мережі
+      - REDIS_HOST=redis_server
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+    # файл із БД SQLite знаходиться у персистентному дисковому сховищі, окремо від контейнеру
+    volumes:
+      - D:\dbdata:/app/database
+    # мапінг портів з контейнерів у основну операційну систему
+    ports:
+      - "8000:8000"
+    # вказуємо, що цей сервіс залежить від іншого і не може бути запущено перед ним
+    depends_on:
+      - redis_server
+  # сервіс із контейнером Redis
+  redis_server:
+    image: redis
+    ports:
+        - "6379:6379"
+  # сервіс, що запускає міграцію БД
+  migration:
+    image: mydocker.example.invalid/webhost_migration
+    build:
+      context: .
+      dockerfile: Dockerfile.migration
+    volumes:
+      - D:\dbdata:/app/database

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: django
+  labels:
+    webapp: django
+spec:
+  containers:
+  - name: webapp
+    imagePullPolicy: Never
+    image: mydocker.example.invalid/webhost
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8000
+    env:
+      - name: REDIS_HOST
+        value: appredis
+      - name: REDIS_PORT
+        value: '6379'
+      - name: REDIS_DB
+        value: '1'
+  - name: appredis
+    image: redis:alpine
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 6379
